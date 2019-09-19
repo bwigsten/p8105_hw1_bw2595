@@ -25,7 +25,7 @@ mean(pull(hw1q1_df, vec_fac))
 
 Only the first 2 variables have a mean value outputted. We cannot take the mean of a character or factor variable, so we get an error that the argument is not numeric or logical.  
 
-```{r hw1q1 include = FALSE}
+```{r eval = FALSE hw1q1}
 
 as.numeric(pull(hw1q1_df, vec_logical))
 as.numeric(pull(hw1q1_df, vec_char))
@@ -34,19 +34,17 @@ as.numeric(pull(hw1q1_df, vec_fac))
 ```
 When we do this, we get number values for our logical and factor variables, so we could take the mean here. But since the character vector does not connect to numbers, we cannot convert to numeric and are given the "NAs introduced by coercion" error. 
 
+```{r}
+#convert the logical vector to numeric, and multiply the random sample by the result
+as.numeric(pull(hw1q1_df, vec_logical)) * pull(hw1q1_df, norm_samp)
 
+#convert the logical vector to a factor, and multiply the random sample by the result
+as.factor(pull(hw1q1_df, vec_logical))*pull(hw1q1_df, norm_samp)
 
-
-
-
-
-
-
-
-
-
-
-
+#convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
+a = as.factor(pull(hw1q1_df, vec_logical)) 
+as.numeric(a)*pull(hw1q1_df, norm_samp)
+```
 
 
 Problem 2
