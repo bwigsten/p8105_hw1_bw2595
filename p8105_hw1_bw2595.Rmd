@@ -41,17 +41,16 @@ as.numeric(pull(hw1q1_df, vec_fac))
 
 ## Converting vectors 
 ```{r eval = FALSE}
-#convert the logical vector to numeric, and multiply the random sample by the result
+#Convert the logical vector to numeric, and multiply the random sample by the result
 as.numeric(pull(hw1q1_df, vec_logical)) * pull(hw1q1_df, norm_samp)
 
-#convert the logical vector to a factor, and multiply the random sample by the result
+#Convert the logical vector to a factor, and multiply the random sample by the result
 as.factor(pull(hw1q1_df, vec_logical)) * pull(hw1q1_df, norm_samp)
 
-#You cannot multiply a factor vector?
+#You cannot multiply a factor vector, so we get an error here that * is not meaningful for factor vectors. 
 
-#convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
-a = as.factor(pull(hw1q1_df, vec_logical)) 
-as.numeric(a)*pull(hw1q1_df, norm_samp)
+#Convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
+as.numeric(as.factor(pull(hw1q1_df, vec_logical)))*pull(hw1q1_df, norm_samp)
 ```
 
 # Problem 2
