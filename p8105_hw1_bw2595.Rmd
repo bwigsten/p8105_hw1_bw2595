@@ -8,8 +8,11 @@ output: github_document
 # Problem 1
 
 ## Load tidyverse and create the logical, character, and factor vectors within the dataframe
+*a random sample of size 8 from a standard Normal distribution
+*a logical vector indicating whether elements of the sample are greater than 0
+*a character vector of length 8
+*a factor vector of length 8, with 3 different factor “levels”
 ```{r hw1q1a}
-
 library(tidyverse)
 
 set.seed(100)
@@ -29,33 +32,38 @@ mean(pull(hw1q1_df, vec_logical))
 mean(pull(hw1q1_df, vec_char))
 mean(pull(hw1q1_df, vec_fac))
 ```
-### Only the first 2 variables have a mean value outputted. We cannot take the mean of a character or factor variable, so we get an error that the argument is not numeric or logical.  
+## What works and what doesn't?
+*Only the first 2 variables have a mean value outputted. We cannot take the mean of a character or factor variable, so we get an error that the argument is not numeric or logical.  
 
 ## Apply as.numeric function to our logical, character, and factor vectors
-```{r hw1q1b}
+```{r eval = FALSE}
 as.numeric(pull(hw1q1_df, vec_logical))
 as.numeric(pull(hw1q1_df, vec_char))
 as.numeric(pull(hw1q1_df, vec_fac))
 ```
-### When we do this, we get number values for our logical and factor variables, so we could take the mean here. But since the character vector does not connect to numbers, we cannot convert to numeric and are given the "NAs introduced by coercion" error. 
+### When we do this, we get number values for our logical and factor variables, so we can take the mean here. However, since the character vector does not connect to numbers, we cannot convert to numeric and are given the "NAs introduced by coercion" error. 
 
 ## Converting vectors 
-```{r eval = FALSE}
-#Convert the logical vector to numeric, and multiply the random sample by the result
+*convert the logical vector to numeric, and multiply the random sample by the result
+*convert the logical vector to a factor, and multiply the random sample by the result
+*convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
+```{r hw1q1c}
 as.numeric(pull(hw1q1_df, vec_logical)) * pull(hw1q1_df, norm_samp)
 
-#Convert the logical vector to a factor, and multiply the random sample by the result
 as.factor(pull(hw1q1_df, vec_logical)) * pull(hw1q1_df, norm_samp)
 
-#You cannot multiply a factor vector, so we get an error here that * is not meaningful for factor vectors. 
-
-#Convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
 as.numeric(as.factor(pull(hw1q1_df, vec_logical)))*pull(hw1q1_df, norm_samp)
 ```
+###You cannot multiply a factor vector, so we get an error here that the symbol * is not meaningful for factor vectors during the second code.
 
 # Problem 2
 
-## Creating a dataframe
+## Creating a dataframe that consists of 
+*x: a random sample of size 500 from a standard Normal distribution
+*y: a random sample of size 500 from a standard Normal distribution
+*A logical vector indicating whether x + y > 1
+*A numeric vector created by coercing the above logical vector
+*A factor vector created by coercing the above logical vector
 ```{r Problem_2a}
 
 set.seed(100)
@@ -70,14 +78,13 @@ hw1q2_df = tibble(
 ```
 
 ## Inline code describing the data
-There are `r nrow(hw1q2_df)` rows in the dataframe and `r ncol(hw1q2_df)` columns. The mean value of x is `r mean(pull(hw1q2_df, x))`, the median value of x is `r median(pull(hw1q2_df, x))`, and the standard deviation of x is `r sd(pull(hw1q2_df, x))`. The proportion of cases for which        x + y > 1 is `r sum(pull(hw1q2_df, vec_log))/500`
+There are `r nrow(hw1q2_df)` rows in the dataframe and `r ncol(hw1q2_df)` columns. The mean value of x is `r mean(pull(hw1q2_df, x))`, the median value of x is `r median(pull(hw1q2_df, x))`, and the standard deviation of x is `r sd(pull(hw1q2_df, x))`. The proportion of cases for which     x + y > 1 is `r sum(pull(hw1q2_df, vec_log))/500`
 
 ## Create scatterplots of logical, numeric, and factor vectors
-```{r}
+```{r Problem2_scatterplot}
 ggplot(hw1q2_df, aes(x = x, y = y, color = vec_log)) + geom_point()
 ggsave("scatter_plot.pdf", height = 6, width = 6)
 
 ggplot(hw1q2_df, aes(x = x, y = y, color = vec_num)) + geom_point()
 ggplot(hw1q2_df, aes(x = x, y = y, color = vec_fac)) + geom_point()
 ```
-
