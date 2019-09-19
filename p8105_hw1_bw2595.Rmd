@@ -2,11 +2,13 @@
 title: "p8105_hw1_bw2595"
 author: "Blair Wigsten"
 date: "9/17/2019"
-output: github_document
+output: html_document
 ---
 
-Problem 1
-```{r hw1_q1}
+# Problem 1
+## Load tidyverse and create the logical, character, and factor vectors within the dataframe
+
+```{r hw1q1a}
 
 library(tidyverse)
 
@@ -16,30 +18,35 @@ hw1q1_df = tibble(
   vec_char = c("A", "B", "C", "D", "E", "F", "G", "H"),
   vec_fac = factor(c("low", "med", "high", "low", "med", "high", "low", "med"))
 )
+```
 
+## Try to take the mean of each variable in the dataframe
+```{r}
 mean(pull(hw1q1_df, norm_samp))
 mean(pull(hw1q1_df, vec_logical))
 mean(pull(hw1q1_df, vec_char))
 mean(pull(hw1q1_df, vec_fac))
 ```
+### Only the first 2 variables have a mean value outputted. We cannot take the mean of a character or factor variable, so we get an error that the argument is not numeric or logical.  
 
-Only the first 2 variables have a mean value outputted. We cannot take the mean of a character or factor variable, so we get an error that the argument is not numeric or logical.  
-
-```{r eval = FALSE hw1q1}
-
+## Apply as.numeric function to our logical, character, and factor vectors
+```{r hw1q1b}
 as.numeric(pull(hw1q1_df, vec_logical))
 as.numeric(pull(hw1q1_df, vec_char))
 as.numeric(pull(hw1q1_df, vec_fac))
-
 ```
-When we do this, we get number values for our logical and factor variables, so we could take the mean here. But since the character vector does not connect to numbers, we cannot convert to numeric and are given the "NAs introduced by coercion" error. 
 
-```{r}
+### When we do this, we get number values for our logical and factor variables, so we could take the mean here. But since the character vector does not connect to numbers, we cannot convert to numeric and are given the "NAs introduced by coercion" error. 
+
+## Converting vectors 
+```{r eval = FALSE}
 #convert the logical vector to numeric, and multiply the random sample by the result
 as.numeric(pull(hw1q1_df, vec_logical)) * pull(hw1q1_df, norm_samp)
 
 #convert the logical vector to a factor, and multiply the random sample by the result
 as.factor(pull(hw1q1_df, vec_logical))*pull(hw1q1_df, norm_samp)
+
+#You cannot multiply a factor vector?
 
 #convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
 a = as.factor(pull(hw1q1_df, vec_logical)) 
@@ -47,7 +54,7 @@ as.numeric(a)*pull(hw1q1_df, norm_samp)
 ```
 
 
-Problem 2
+
 ```{r Problem_2a}
 
 hw1q2_df = tibble(
@@ -59,10 +66,12 @@ hw1q2_df = tibble(
 )
 ```
 
-The size of the dataset and number of columns is
-`r nrow(hw1q2_df) ncol(hw1q2_df)`.
 
 ```{r}
-ggplot(plot_df, aes(x = x, y = y), color = ...) + geom_point()
+ggplot(hw1q2_df, aes(x = x, y = y, color = vec_log)) + geom_point()
+ggsave("scatter_plot.pdf", height = 6, width = 6)
+
+ggplot(hw1q2_df, aes(x = x, y = y, color = vec_num)) + geom_point()
+ggplot(hw1q2_df, aes(x = x, y = y, color = vec_fac)) + geom_point()
 ```
 
