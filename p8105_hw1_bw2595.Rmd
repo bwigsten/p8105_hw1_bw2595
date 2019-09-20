@@ -77,7 +77,7 @@ hw1q2_df = tibble(
   vec_fac = as.factor(vec_log)
 )
 ```
-* This creates a dataframe comprised of a random sample of size 500 from a standard normal distribution (x), a random sample of size 500 from a standard normal distribution (y), a logical vector indicating whether x + y > 1 (vec_log), a numeric vector created by coercing vec_log (vec_num), and a factor vector created by coercing vec_log (vec_fac).
+* This creates a dataframe called hw1q2_df comprised of a random sample of size 500 from a standard normal distribution (x), a random sample of size 500 from a standard normal distribution (y), a logical vector indicating whether x + y > 1 (vec_log), a numeric vector created by coercing vec_log (vec_num), and a factor vector created by coercing vec_log (vec_fac).
 
 ## Inline code describing the data
 There are `r nrow(hw1q2_df)` rows in the dataframe and `r ncol(hw1q2_df)` columns. The mean value of x is `r mean(pull(hw1q2_df, x))`, the median value of x is `r median(pull(hw1q2_df, x))`, and the standard deviation of x is `r sd(pull(hw1q2_df, x))`. The proportion of cases for which x + y > 1 is `r sum(pull(hw1q2_df, vec_log))/500`
@@ -89,7 +89,10 @@ ggsave("scatter_plot.pdf", height = 6, width = 6)
 
 ggplot(hw1q2_df, aes(x = x, y = y, color = vec_num)) + geom_point()
 ggplot(hw1q2_df, aes(x = x, y = y, color = vec_fac)) + geom_point()
-```
+``` 
+
 * The first plot of y vs. x using the logical variable has two different colors for points. The red points indicate that the observation does not satisfy the statement that the sum of x and y is greater than 1, and the blue dots satisfy that condition. 
+
 * The second plot of y vs. x using the numeric vector has a color scale, if we were to have points that were not either 0 or 1. Since we are converting the logical vector to numeric, we will only have 0 or 1 values, so that is why we only see 2 distinct colors, rather than the gradient shown in the key. 
+
 * The third plot of y vs. x using the factor vector is similar to the logical vector graph. The red points indicate that the observation does not satisfy the logical vector statement, while the blue ones show points that satisfy the condition that     x + y > 1. 
