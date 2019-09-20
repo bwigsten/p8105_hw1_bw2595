@@ -27,7 +27,7 @@ hw1q1_df = tibble(
 * This creates a dataframe called hw1q1_df comprised of a random sample of size 8 from a standard normal distribution (norm_samp), a logical vector indicating whether elements of the sample are greater than 0 (vec_logical), a character vector of length 8 (vec_char), and a factor vector of length 8, with 3 different levels (vec_fac).
 
 ## Try to take the mean of each variable in the dataframe
-```{r}
+```{r hw1q1b}
 mean(pull(hw1q1_df, norm_samp))
 mean(pull(hw1q1_df, vec_logical))
 mean(pull(hw1q1_df, vec_char))
